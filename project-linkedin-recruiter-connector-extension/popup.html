@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      width: 350px;
+      padding: 15px;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #0077B5 0%, #00A676 100%);
+      color: white;
+      margin: 0;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 20px;
+      border-radius: 10px;
+      color: #333;
+    }
+    .section {
+      margin-bottom: 15px;
+    }
+    input, textarea, button {
+      width: 100%;
+      margin: 5px 0;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+    textarea {
+      height: 80px;
+      resize: vertical;
+    }
+    button {
+      background: linear-gradient(135deg, #0077B5, #00A676);
+      color: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+    button:hover {
+      background: linear-gradient(135deg, #005f8e, #008c65);
+    }
+    button:disabled {
+      background: #cccccc;
+      cursor: not-allowed;
+    }
+    .status {
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 4px;
+      display: none;
+      text-align: center;
+      font-weight: bold;
+    }
+    .success { background: #d4edda; color: #155724; }
+    .error { background: #f8d7da; color: #721c24; }
+    .processing { background: #cce7ff; color: #004085; }
+    .progress {
+      margin: 10px 0;
+      font-size: 12px;
+      text-align: center;
+      font-weight: bold;
+    }
+    h3 {
+      text-align: center;
+      margin: 0 0 15px 0;
+      color: #0077B5;
+    }
+    label {
+      font-weight: bold;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h3>LinkedIn Auto Connector</h3>
+    
+    <div class="section">
+      <label>Upload JSON File:</label>
+      <input type="file" id="jsonFile" accept=".json">
+    </div>
+
+    <div class="section">
+      <label>Connection Message (Optional):</label>
+      <textarea id="connectionMessage" placeholder="Hi, I'd like to connect with you..."></textarea>
+    </div>
+
+    <div class="section">
+      <label>Delay between requests (seconds):</label>
+      <input type="number" id="delay" value="15" min="15" max="60">
+    </div>
+
+    <div class="section">
+      <label>Max Connections:</label>
+      <input type="number" id="maxConnections" value="10" min="1" max="50">
+    </div>
+
+    <button id="startBtn">Start Auto Connecting</button>
+    <button id="stopBtn" disabled>Stop</button>
+
+    <div class="progress">
+      <div id="progressText">Ready to start</div>
+    </div>
+
+    <button id="downloadLogs">Download Connection Logs</button>
+
+    <div id="status" class="status"></div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

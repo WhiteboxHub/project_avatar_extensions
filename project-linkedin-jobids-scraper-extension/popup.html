@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>IP - LinkedIn Job Fetcher</title>
+
+    <style>
+      /* Page background */
+      body {
+        font-family: Arial, sans-serif;
+        width: 320px;
+        padding: 20px;
+        margin: 0;
+        background: linear-gradient(135deg, #0077B5 0%, #00C48C 100%);
+        background-size: cover;
+        color: #fff;
+      }
+
+      /* Center card */
+      .card {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 20px;
+        border-radius: 14px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+        backdrop-filter: blur(6px);
+      }
+
+      h2 {
+        margin: 0;
+        text-align: center;
+        font-size: 20px;
+        color: #0077B5;
+        font-weight: bold;
+      }
+
+      h4 {
+        margin-top: 4px;
+        text-align: center;
+        color: #00A676;
+        font-size: 12px;
+        font-weight: bold;
+      }
+
+      label {
+        font-size: 13px;
+        font-weight: bold;
+        margin-top: 12px;
+        display: block;
+        color: #333;
+      }
+
+      input, select {
+        width: 100%;
+        margin-top: 5px;
+        padding: 8px;
+        border-radius: 6px;
+        border: 1px solid #c8c8c8;
+        box-sizing: border-box;
+        font-size: 13px;
+        background: #fff;
+        color: #222;
+      }
+
+      input:focus, select:focus {
+        border-color: #00C48C;
+        outline: none;
+        box-shadow: 0 0 5px rgba(0,196,140,0.4);
+      }
+
+      button {
+        width: 100%;
+        margin-top: 18px;
+        padding: 10px;
+        border-radius: 6px;
+        background: linear-gradient(135deg, #0077B5, #00C48C);
+        color: white;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+        font-size: 14px;
+      }
+
+      button:hover {
+        background: linear-gradient(135deg, #005f8e, #00a473);
+      }
+
+      #status {
+        margin-top: 12px;
+        font-size: 13px;
+        color: #004d40;
+        text-align: center;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="card">
+      <h2>IP - LinkedIn Job Fetcher</h2>
+      <h4>Fetching Easy Apply Job IDs</h4>
+
+      <label for="keyword">Job Keyword:</label>
+      <input type="text" id="keyword" placeholder="e.g., Machine Learning Engineer" />
+
+      <label for="location">Location:</label>
+      <input type="text" id="location" placeholder="e.g., USA or City" />
+
+      <label for="presetLocation">Quick Select (USA Cities):</label>
+      <select id="presetLocation">
+        <option value="">Select a City</option>
+
+        <!-- California -->
+        <option value="San Francisco, CA, USA">San Francisco, CA</option>
+        <option value="Los Angeles, CA, USA">Los Angeles, CA</option>
+        <option value="San Diego, CA, USA">San Diego, CA</option>
+        <option value="San Jose, CA, USA">San Jose, CA</option>
+        <option value="Sacramento, CA, USA">Sacramento, CA</option>
+
+        <!-- Others -->
+        <option value="New York, NY, USA">New York, NY</option>
+        <option value="Seattle, WA, USA">Seattle, WA</option>
+        <option value="Austin, TX, USA">Austin, TX</option>
+        <option value="Chicago, IL, USA">Chicago, IL</option>
+        <option value="Boston, MA, USA">Boston, MA</option>
+        <option value="Dallas, TX, USA">Dallas, TX</option>
+        <option value="Houston, TX, USA">Houston, TX</option>
+        <option value="Atlanta, GA, USA">Atlanta, GA</option>
+        <option value="Miami, FL, USA">Miami, FL</option>
+        <option value="Denver, CO, USA">Denver, CO</option>
+        <option value="Phoenix, AZ, USA">Phoenix, AZ</option>
+      </select>
+
+      <button id="fetchJobs">Fetch Easy Apply Jobs</button>
+      <div id="status"></div>
+    </div>
+
+    <script>
+      document.getElementById("presetLocation").addEventListener("change", (e) => {
+        if (e.target.value) {
+          document.getElementById("location").value = e.target.value;
+        }
+      });
+    </script>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
