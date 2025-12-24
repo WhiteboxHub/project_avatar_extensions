@@ -1,0 +1,177 @@
+// setup.html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Post Contact Extractor Extension Setup</title>
+    <style>
+        :root {
+            --primary: #0077b5;
+            --primary-dark: #004182;
+            --bg: #f3f2ef;
+            --white: #ffffff;
+            --text: #333333;
+            --accent: #057642;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .setup-card {
+            background: var(--white);
+            width: 400px;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .logo {
+            width: 80px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+
+        p {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .form-group {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 14px;
+            transition: border 0.3s;
+        }
+
+        input:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        #status {
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .error {
+            background-color: #fee;
+            color: #d33;
+            display: block !important;
+        }
+
+        .success {
+            background-color: #efe;
+            color: #282;
+            display: block !important;
+        }
+
+        .info {
+            background-color: #eef;
+            color: #44a;
+            display: block !important;
+        }
+
+        .links {
+            margin-top: 20px;
+            font-size: 12px;
+        }
+
+        .links a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="setup-card">
+        <img src="icons/icon128.png" alt="WBL Logo" class="logo">
+        <h1>LinkedIn Post Contact Extractor Setup</h1>
+        <p>Login with your WBL credentials to generate a token and sync your Employee ID.</p>
+
+        <div class="form-group">
+            <label>API URL</label>
+            <input type="text" id="api-url" value="https://whitebox-learning.com/api">
+        </div>
+
+        <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" id="email" placeholder="email@whitebox-learning.com">
+        </div>
+
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="password" placeholder="••••••••">
+        </div>
+
+        <button id="login-btn" class="btn">Login & Sync</button>
+
+        <div id="status"></div>
+
+        <div class="links">
+            Already have a token? <a href="#" id="manual-close">Go back to popup</a>
+        </div>
+    </div>
+    <script src="setup.js"></script>
+</body>
+
+</html>

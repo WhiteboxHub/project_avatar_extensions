@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Post Contact Extractor</title>
+    <style>
+        :root {
+            --primary: #0077b5;
+            --primary-dark: #004182;
+            --bg: #f3f2ef;
+            --white: #ffffff;
+            --text: #333333;
+            --accent: #057642;
+            --brown: #a52a2a;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            width: 350px;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg);
+            color: var(--text);
+        }
+
+        .header {
+            background-color: var(--white);
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .header img {
+            width: 40px;
+            height: 40px;
+            margin-right: 12px;
+        }
+
+        .header h1 {
+            font-size: 18px;
+            margin: 0;
+            color: var(--primary);
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: var(--shadow);
+        }
+
+        .input-group {
+            margin-bottom: 12px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #666;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 14px;
+            outline: none;
+            transition: border 0.3s;
+        }
+
+        input:focus {
+            border-color: var(--primary);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.1s;
+            margin-bottom: 10px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-success {
+            background-color: var(--accent);
+            color: white;
+        }
+
+        .btn-info {
+            background-color: #007bb5;
+            color: white;
+            margin-top: 10px;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .status {
+            font-size: 13px;
+            margin-top: 10px;
+            padding: 8px;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .status.info {
+            background-color: #e7f3ff;
+            color: #0077b5;
+            display: block;
+        }
+
+        .status.success {
+            background-color: #e6f4ea;
+            color: #057642;
+            display: block;
+        }
+
+        .status.error {
+            background-color: #feefef;
+            color: #d93025;
+            display: block;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+            margin-top: 10px;
+            font-size: 12px;
+        }
+
+        .stats-item span {
+            font-weight: bold;
+            color: var(--primary);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <img src="icons/icon128.png" alt="WBL Logo">
+        <h1>LinkedIn Post Contact Extractor</h1>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <div class="input-group">
+                <label>Employee ID</label>
+                <input type="text" id="employee-id" placeholder="e.g. 353">
+            </div>
+            <div class="input-group">
+                <label>Selected Candidate ID</label>
+                <input type="text" id="candidate-id" placeholder="e.g. 1290 (Optional)">
+            </div>
+            <div class="input-group">
+                <label>Source Email (LinkedIn Login Email)</label>
+                <input type="email" id="source-email" placeholder="Your LinkedIn login email">
+            </div>
+            <div class="input-group">
+                <label>WBL API URL</label>
+                <input type="text" id="api-url" placeholder="http://localhost:8000">
+            </div>
+            <div class="input-group">
+                <label>WBL API Token</label>
+                <input type="password" id="api-token" placeholder="Paste your JWT token">
+            </div>
+            <div class="input-group">
+                <label>Keywords (Comma separated)</label>
+                <input type="text" id="keywords" placeholder="AI, Machine Learning, Python">
+            </div>
+            <button id="save-config" class="btn btn-primary">Save Configuration</button>
+            <div style="text-align: center; margin-top: 10px;">
+                <a href="setup.html" target="_blank"
+                    style="font-size: 11px; color: var(--primary); text-decoration: none;">Auto-generate token & ID</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <button id="start-btn" class="btn btn-success">Start Extraction</button>
+            <button id="stop-btn" class="btn btn-primary" style="background-color: #666; display: none;">Stop</button>
+            <button id="download-csv" class="btn btn-info">Download CSV</button>
+
+            <div id="status-msg" class="status">Ready</div>
+
+            <div class="stats" id="stats-panel" style="display: none;">
+                <div class="stats-item">Found: <span id="count-found">0</span></div>
+                <div class="stats-item">Saved: <span id="count-saved">0</span></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+
+</html>
